@@ -12,10 +12,31 @@
 List<gang> list =(List)request.getAttribute("list");
 	for(gang gang:list){
 		%>
-		<a class="item"><%=gang.getName() %>-<%=gang.getNumber().substring(0,7) %></a>
+		<a class="item gang1"><%=gang.getName() %></a>
 		<%
 	}
-
 %>
 </body>
+<script>
+$('.gang1').click(function(){
+	str = $(this)[0].innerHTML;
+	var data = {
+		name: 'gangName',
+		value: str,
+	};
+	var xhr = new XMLHttpRequest();
+	xhr.onload = function(){
+		if(xhr.readyState === xhr.DONE){
+			if(xhr.status === 200 || xhr.status === 201){
+				$('#test2').html(xhr.responseText);
+			}else{
+				alert("에러임");
+			}
+		}
+	}
+	xhr.open("POST", "register");
+	xhr.setRequestHeader("Content-Type","application/json; charset=UTF-8");
+	xhr.send(/* JSON.stringify(data) */str);
+});
+</script>
 </html>
