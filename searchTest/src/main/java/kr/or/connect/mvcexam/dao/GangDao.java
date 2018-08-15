@@ -1,6 +1,6 @@
 package kr.or.connect.mvcexam.dao;
 
-import static kr.or.connect.mvcexam.dao.GangDaoSqls.SELECT_BY_NAME;
+import static kr.or.connect.mvcexam.dao.GangDaoSqls.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -29,6 +29,14 @@ public class GangDao {
 		try {
 			Map<String, ?> params = Collections.singletonMap("name", "%"+name+"%");
 			return jdbc.query(SELECT_BY_NAME, params, rowMapper);
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+	public List<gang> selectByOnlyName(String name) {
+		try {
+			Map<String, ?> params = Collections.singletonMap("name", name);
+			return jdbc.query(SELECT_BY_ONLY_NAME, params, rowMapper);
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}

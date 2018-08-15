@@ -10,8 +10,7 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="resources/semantic/semantic.js"></script>
     <title>동국 AutoTimetable</title>
-    <style>
- 
+    <style> 
     </style>
 </head>
  
@@ -25,7 +24,7 @@
             </div>
           </a>    	
           <div id="test" style="height:200px; overflow:scroll;"></div>
-          <div class="ui divider"></div>
+          <div style="text-align:center; width:100%"><i class="chevron down icon orange big" style=""></i></div>
           <div id="test2" style="height:400px; overflow:scroll;">
           <%
 			Map map = (Map)session.getAttribute("map");
@@ -38,8 +37,8 @@
 			}
 			}%>
           </div>
-          <button class="orange ui button" style="width: 95%;margin-left: 2.5%;height: 50px;font-size: 20px;">
-          시간표 자동생성</button>      
+          <button id="doAuto" class="orange ui button" style="width: 95%;margin-left: 2.5%;height: 50px;font-size: 20px;">
+          시간표 자동생성</button>
         </div>
         <div class="pusher">
           <div class="ui basic segment">
@@ -361,6 +360,20 @@
     		xhr.open("POST", "remove");
     		xhr.setRequestHeader("Content-Type", "application/json; charSet=UTF-8");
     		xhr.send(str);
+    	})
+    	$('#doAuto').click(function(){
+    		var xhr = new XMLHttpRequest();
+    		xhr.onload=function(){
+    			if(xhr.readyState === xhr.DONE){
+    				if(xhr.status===200 || xhr.status ===201){
+    					$('.header').html(xhr.responseText);
+    				}else{
+    					alert("실패?");
+    				}
+    			}
+    		}
+    		xhr.open("GET", "make");
+    		xhr.send();
     	})
 
       </script>
