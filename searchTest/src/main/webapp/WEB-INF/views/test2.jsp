@@ -21,4 +21,23 @@ for(String str : keyset){
 
 %>
 </body>
+<script>
+$('.gang2').click(function(){
+	var str = $(this)[0].innerHTML;
+	var xhr = new XMLHttpRequest();
+	xhr.onload=function(){
+		if(xhr.readyState === xhr.DONE){
+			if(xhr.status===200 || xhr.status ===201){
+				$('#test2').html(xhr.responseText);
+			}else{
+				alert("½ÇÆÐ?");
+			}
+		}
+	}
+	xhr.open("POST", "remove");
+	xhr.setRequestHeader("Content-Type", "application/json; charSet=UTF-8");
+	xhr.send(str);
+})
+
+</script>
 </html>

@@ -71,6 +71,18 @@ public class PlusController {
 		
 		return "test2";
 	}
+	@PostMapping(path="/remove")
+	public String remove(
+			@RequestBody String value,
+			ModelMap modelMap,
+			HttpServletRequest rq) {
+		HttpSession sess = rq.getSession();
+		Map<String, List> gangMap = (Map)sess.getAttribute("map");
+		gangMap.remove(value);
+		
+		return "test2";
+		
+	}
 }
 
 

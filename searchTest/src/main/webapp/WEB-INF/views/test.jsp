@@ -20,10 +20,6 @@ List<gang> list =(List)request.getAttribute("list");
 <script>
 $('.gang1').click(function(){
 	str = $(this)[0].innerHTML;
-	var data = {
-		name: 'gangName',
-		value: str,
-	};
 	var xhr = new XMLHttpRequest();
 	xhr.onload = function(){
 		if(xhr.readyState === xhr.DONE){
