@@ -6,11 +6,13 @@ import java.util.StringTokenizer;
 import kr.or.connect.mvcexam.dto.gang;
 
 public class TimeTable {
+	static int[] conditionArr;
 	private int[][] table;
 	public TimeTable() {
 		//열은 요일, 각각 월 화 수 목 금 = 0 1 2 3 4
 		//행은 x교시 , *2
 		this.table=new int[40][5];
+		conditionArr= new int[10];
 	}	
 	//이미 겹치면 false 반환
 	public boolean addGang(String gangTime) {
@@ -24,6 +26,8 @@ public class TimeTable {
 	}
 	public boolean addGangHelper(String token) {
 		int yoil=getYoil(token.charAt(0));
+		if(conditionArr[yoil]==0||yoil==(-1))
+			return false;
 		token = token.substring(1);
 		StringTokenizer st = new StringTokenizer(token, "-");
 		int start= (int)(Double.parseDouble(st.nextToken())*2);
@@ -49,7 +53,13 @@ public class TimeTable {
 		else
 			return -1;	
 	}
-	public boolean isFittedTable(List<gang> tmpList) {
+	public boolean isFittedTable(List<gang> tmpList, int condi) {
+		conditionArr[4]=condi%10; condi/=10;
+		conditionArr[3]=condi%10; condi/=10;
+		conditionArr[2]=condi%10; condi/=10;
+		conditionArr[1]=condi%10; condi/=10;
+		conditionArr[0]=condi%10;
+		
 		for(gang gang : tmpList) {
 			if(!addGang(gang.getTimes()))
 				return false;
